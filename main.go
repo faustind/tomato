@@ -9,18 +9,14 @@ import (
 )
 
 type model struct {
-	hour int
-	min  int
-	sec  int
+	min int
+	sec int
 }
 
 func initialModel() *model {
-	now := time.Now()
-	hour, min, sec := now.Clock()
 	return &model{
-		hour,
-		min,
-		sec,
+		min: 1,
+		sec: 0,
 	}
 }
 
@@ -41,8 +37,16 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 
 	case TickMsg:
-		t := time.Time(msg)
-		m.hour, m.min, m.sec = t.Clock()
+		if m.min == 0 && m.sec == 0 {
+			return m, nil
+		}
+
+		min, sec := m.min, m.sec-1
+		if sec < 0 {
+			min, sec = min-1, 59
+		}
+
+		m.min, m.sec = min, sec
 		return m, doTick()
 
 	case tea.KeyMsg:
@@ -57,7 +61,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m model) View() string {
 	s := fmt.Sprintf("tomato\n")
-	s += fmt.Sprintf("%2d:%2d:%2d", m.hour, m.min, m.sec)
+	s += fmt.Sprintf("%2d:%2d", m.min, m.sec)
 	s += "\npress q to quit.\n"
 	return s
 }
