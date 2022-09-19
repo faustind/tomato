@@ -2,21 +2,28 @@ package model
 
 import (
 	"fmt"
+	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 	"github.com/faustind/tomato/internal/cmd"
 )
-
-type model struct {
-	duration            duration
-	durations           map[byte]duration
-	pattern             string
-	currentCountdownIdx int
-}
 
 type duration struct {
 	min int
 	sec int
+}
+
+type window struct {
+	height, width int
+}
+
+type model struct {
+	window              window
+	duration            duration
+	durations           map[byte]duration
+	pattern             string
+	currentCountdownIdx int
 }
 
 func Initial(pattern string, w, s, l int) *model {
@@ -37,6 +44,10 @@ func (m model) Init() tea.Cmd {
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
+
+	case tea.WindowSizeMsg:
+		m.window.width, m.window.height = msg.Width, msg.Height
+		return m, nil
 
 	case cmd.TickMsg:
 		if m.duration.min == 0 && m.duration.sec == 0 {
@@ -77,8 +88,18 @@ func (m model) View() string {
 		'l': "long break",
 	}
 
-	s := fmt.Sprintf("tomato: %s\n", msgs[m.pattern[m.currentCountdownIdx]])
-	s += fmt.Sprintf("%02d:%02d", m.duration.min, m.duration.sec)
-	s += "\npress q to quit.\n"
-	return s
+	timer := lipgloss.NewStyle().Align(lipgloss.Center).Render(
+		fmt.Sprintf("%02d:%02d", m.duration.min, m.duration.sec),
+	)
+
+	statusMsg := lipgloss.NewStyle().Align(lipgloss.Center).Render(
+		strings.Title(msgs[m.pattern[m.currentCountdownIdx]]),
+	)
+
+	ui := lipgloss.Place(
+		m.window.width, m.window.height, lipgloss.Center, lipgloss.Center,
+		lipgloss.JoinVertical(lipgloss.Center, timer, statusMsg),
+	)
+
+	return ui
 }

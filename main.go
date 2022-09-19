@@ -22,14 +22,21 @@ func main() {
 		fmt.Printf("Invalid pattern ''%s', should not be empty\n", *p)
 		os.Exit(2)
 	}
+
 	for _, c := range *p {
 		if c != 'w' && c != 'l' && c != 's' {
 			fmt.Printf("Invalid pattern ''%s', should contain only w,s, or l\n", *p)
 			os.Exit(2)
 		}
-	}
+    }
 
-	prog := tea.NewProgram(model.Initial(*p, *w, *s, *l))
+    opts := []tea.ProgramOption{
+        tea.WithAltScreen(), // full screen
+    }
+
+    initialModel := model.Initial(*p, *w, *s, *l)
+
+	prog := tea.NewProgram(initialModel, opts...)
 	if err := prog.Start(); err != nil {
 		log.Fatalf("There's been an error: %v", err)
 	}
