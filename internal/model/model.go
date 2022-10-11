@@ -46,29 +46,29 @@ func Initial(pattern string, w, s, l int, withProgress bool) *model {
 
 	ui := DIGITAL
 
-	var prog *progressBar
-	if withProgress {
-		ui = PROGRESS
-		prog = &progressBar{
-			padding:  2,
-			maxWidth: 80,
-			bar: progress.New(
-                progress.WithSolidFill("#dbbe88"),
-				progress.WithoutPercentage(),
-            ),
-		}
-
-		prog.bar.SetPercent(1.0)
-	}
-
-	return &model{
+	mod := &model{
 		currentCountdownIdx: 0,
 		duration:            durations[start],
 		durations:           durations,
 		pattern:             pattern,
 		ui:                  ui,
-		progress:            *prog,
 	}
+
+	if withProgress {
+		ui = PROGRESS
+		prog := &progressBar{
+			padding:  2,
+			maxWidth: 80,
+			bar: progress.New(
+				progress.WithSolidFill("#dbbe88"),
+				progress.WithoutPercentage(),
+			),
+		}
+		prog.bar.SetPercent(1.0)
+		mod.progress = *prog
+	}
+
+	return mod
 }
 
 func (m model) Init() tea.Cmd {
