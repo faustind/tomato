@@ -7,16 +7,15 @@ import (
 	"os"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/faustind/tomato/internal/model"
+	"github.com/faustind/tomato/internal"
 )
 
 func main() {
 	var (
-		p        = flag.String("p", "wswswl", "Pattern of a working session")
-		w        = flag.Int("w", 25, "Duration of a working session")
-		s        = flag.Int("s", 5, "Duration of a short break")
-		l        = flag.Int("l", 10, "Duration of a long break")
-		progress = flag.Bool("progress", false, "Show timer using a progress bar")
+		p = flag.String("p", "wswswl", "Pattern of a working session")
+		w = flag.Int("w", 25, "Duration of a working session")
+		s = flag.Int("s", 5, "Duration of a short break")
+		l = flag.Int("l", 10, "Duration of a long break")
 	)
 
 	flag.Parse()
@@ -37,7 +36,7 @@ func main() {
 		tea.WithAltScreen(), // full screen
 	}
 
-	initialModel := model.Initial(*p, *w, *s, *l, *progress)
+	initialModel := internal.NewModel(*p, *w, *s, *l)
 
 	prog := tea.NewProgram(initialModel, opts...)
 	if err := prog.Start(); err != nil {
