@@ -1,3 +1,4 @@
+// Package internal contains code I have no idea where to put hehe
 package internal
 
 import (
@@ -6,7 +7,7 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-var colon string = `
+var colon = `
 ..
 #.
 ..
@@ -14,21 +15,21 @@ var colon string = `
 ..
 `
 
-var zero string = `
+var zero = `
 ######.
 #....#.
 #....#.
 #....#.
 ######.
 `
-var one string = `
+var one = `
 .....#.
 .....#.
 .....#.
 .....#.
 .....#.
 `
-var two string = `
+var two = `
 ######.
 .....#.
 ######.
@@ -36,7 +37,7 @@ var two string = `
 ######.
 `
 
-var three string = `
+var three = `
 ######.
 .....#.
 ...###.
@@ -44,7 +45,7 @@ var three string = `
 ######.
 `
 
-var four string = `
+var four = `
 #......
 #......
 #...#..
@@ -52,7 +53,7 @@ var four string = `
 ....#..
 `
 
-var five string = `
+var five = `
 ######.
 #......
 ######.
@@ -60,7 +61,7 @@ var five string = `
 ######.
 `
 
-var six string = `
+var six = `
 ######.
 #......
 ######.
@@ -68,7 +69,7 @@ var six string = `
 ######.
 `
 
-var seven string = `
+var seven = `
 ######.
 .....#.
 .....#.
@@ -76,7 +77,7 @@ var seven string = `
 .....#.
 `
 
-var height string = `
+var height = `
 ######.
 #....#.
 ######.
@@ -84,7 +85,7 @@ var height string = `
 ######.
 `
 
-var nine string = `
+var nine = `
 ######.
 #....#.
 ######.

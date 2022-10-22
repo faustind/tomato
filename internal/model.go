@@ -1,3 +1,4 @@
+// Package internal contains the bubbletea model and its helper
 package internal
 
 import (
