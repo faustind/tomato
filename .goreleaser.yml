@@ -1,0 +1,20 @@
+build:
+  binary: tomato
+  goarch:
+    - amd64
+    - 386
+  goos:
+    - darwin
+    - linux
+archive:
+  files:
+    - LICENSE
+    - README.md
+release:
+  github: 
+    owner: faustind
+    name: tomato
+brew:
+  github: 
+    owner: faustind
+    name: tomato
