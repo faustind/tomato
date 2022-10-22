@@ -1,4 +1,3 @@
-// Package internal contains code I have no idea where to put hehe
 package internal
 
 import (
