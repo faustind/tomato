@@ -1,6 +1,6 @@
 # tomato
 
-tomato is a fork of [gone](https://github.com/guillaumebreton/gone) "a simple cli
+`tomato` is a fork of [`gone`](https://github.com/guillaumebreton/gone) "a simple cli
 pomodoro timer for OSX and Linux",
 but rebuilt with [bubbletea](https://github.com/charmbracelet/bubbletea)
 
@@ -15,8 +15,8 @@ right artifact and put it in your path :)
 
 Run `tomato` and use `q` or `ctrl+c` to quit.
 
-```bash
-./bin/tomato -h
+```
+$ ./bin/tomato -h
 Usage of ./bin/tomato:
   -l int
         Duration of a long break (default 10)
