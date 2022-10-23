@@ -38,7 +38,11 @@ type model struct {
 
 // NewModel returns an initial model according to given params
 func NewModel(pattern string, w, s, l int) *model {
-	durations := map[byte]duration{'w': {min: w, sec: 0}, 's': {min: s, sec: 0}, 'l': {min: l, sec: 0}}
+	durations := map[byte]duration{
+		'w': {min: w, sec: 0}, // duration of a working session
+		's': {min: s, sec: 0}, // duration of a short break
+		'l': {min: l, sec: 0}, // duration of a long break
+	}
 	start := pattern[0]
 
 	mod := &model{
